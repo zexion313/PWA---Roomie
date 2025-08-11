@@ -1,0 +1,13 @@
+# Node/Next
+node_modules
+.next
+out
+
+# Env
+.env*
+!.env.example
+
+# Logs/OS
+npm-debug.log*
+yarn-error.log*
+.DS_Store
