@@ -1,9 +1,9 @@
 "use client";
 
 import * as React from "react";
-import { Box, Button, Grid, Stack, TextField, InputAdornment, Chip, Snackbar, Alert } from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
 import TenantCard from "@/components/TenantCard";
+import { Button, Chip, InputAdornment, Snackbar, Alert, Box, Grid, Stack, TextField } from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
 import TenantFormDialog, { TenantFormValues } from "@/components/TenantFormDialog";
 import ConfirmDialog from "@/components/ConfirmDialog";
 import type { Tenant } from "@/types";
@@ -60,42 +60,42 @@ export default function TenantsPage() {
   };
 
   return (
-    <Stack spacing={2}>
-      <Stack direction="row" spacing={1} alignItems="center">
-        <TextField
-          size="small"
-          placeholder="Search tenants"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          InputProps={{ startAdornment: (
-            <InputAdornment position="start">
-              <SearchIcon />
-            </InputAdornment>
-          )}}
-        />
-        <Box sx={{ flexGrow: 1 }} />
+    <div className="space-y-4">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+        <div className="w-full sm:max-w-sm">
+          <TextField
+            size="small"
+            placeholder="Search tenants"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            InputProps={{ startAdornment: (
+              <InputAdornment position="start">
+                <SearchIcon />
+              </InputAdornment>
+            )}}
+          />
+        </div>
+        <div className="flex-1" />
         <Button variant="contained" onClick={handleAdd}>Add Tenant</Button>
-      </Stack>
+      </div>
 
       {query && (
-        <Stack direction="row" spacing={1}>
+        <div>
           <Chip label={`Results: ${filtered.length}`} size="small" />
-        </Stack>
+        </div>
       )}
 
-      <Grid container spacing={2}>
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {filtered.map((t) => (
-          <Grid key={t.id} item xs={12}>
-            <Stack spacing={1}>
-              <TenantCard name={t.name} phone={t.phone} roomNumber={t.room} isAssigned={t.isAssigned} />
-              <Stack direction="row" spacing={1} justifyContent="flex-end">
-                <Button size="small" variant="outlined" onClick={() => handleEdit(t)}>Edit</Button>
-                <Button size="small" color="error" variant="outlined" onClick={() => handleDelete(t)}>Delete</Button>
-              </Stack>
-            </Stack>
-          </Grid>
+          <div key={t.id} className="space-y-2">
+            <TenantCard name={t.name} phone={t.phone} roomNumber={t.room} isAssigned={t.isAssigned} />
+            <div className="flex items-center justify-end gap-2">
+              <Button size="small" variant="outlined" onClick={() => handleEdit(t)}>Edit</Button>
+              <Button size="small" color="error" variant="outlined" onClick={() => handleDelete(t)}>Delete</Button>
+            </div>
+          </div>
         ))}
-      </Grid>
+      </div>
 
       <TenantFormDialog
         open={openForm}
@@ -116,6 +116,6 @@ export default function TenantsPage() {
       <Snackbar open={!!toast} autoHideDuration={2500} onClose={() => setToast(null)}>
         <Alert severity="success" variant="filled">{toast}</Alert>
       </Snackbar>
-    </Stack>
+    </div>
   );
 } 
